@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sample.domain.Article;
 import jp.co.sample.form.ArticleForm;
+import jp.co.sample.form.CommentForm;
 import jp.co.sample.repository.ArticleRepository;
+import jp.co.sample.repository.CommentRepository;
 
 
 /**
@@ -25,10 +27,16 @@ public class ArticleController {
 
 	@Autowired
 	private ArticleRepository articleRepository;
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	@ModelAttribute
 	public ArticleForm setUpForm() {
 		return new ArticleForm();
+	}
+	@ModelAttribute
+	public CommentForm setUpForm1() {
+		return new CommentForm();
 	}
 	
 	/**
@@ -47,6 +55,13 @@ public class ArticleController {
 		
 	}
 	
+	/**
+	 * articleを投稿するメソッド.
+	 * 
+	 * @param articleForm 記事のform情報
+	 * @param model　モデル
+	 * @return　トップページにリダイレクト
+	 */
 	@RequestMapping("/insertArticle")
 	public String insertArticle(ArticleForm articleForm, Model model) {
 		
@@ -60,5 +75,6 @@ public class ArticleController {
 		
 		return "redirect:/article/bbs";
 	}
+	
 	
 }
