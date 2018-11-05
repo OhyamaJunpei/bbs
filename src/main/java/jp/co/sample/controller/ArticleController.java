@@ -31,6 +31,12 @@ public class ArticleController {
 		return new ArticleForm();
 	}
 	
+	/**
+	 * 初期画面へフォワードするメソッド.
+	 * 
+	 * @param model モデル
+	 * @return　初期画面
+	 */
 	@RequestMapping("/bbs")
 	public String bbs(Model model) {
 		
@@ -39,6 +45,20 @@ public class ArticleController {
 		
 		return "bbs";
 		
+	}
+	
+	@RequestMapping("/insertArticle")
+	public String insertArticle(ArticleForm articleForm, Model model) {
+		
+		Article article = new Article();
+		article.setName(articleForm.getName());
+		article.setContent(articleForm.getContent());
+		
+		articleRepository.insert(article);
+		
+		model.addAttribute("article", article);
+		
+		return "redirect:/article/bbs";
 	}
 	
 }
